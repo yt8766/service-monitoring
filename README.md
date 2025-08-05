@@ -1,4 +1,3 @@
-.
 ├── apps
 │   ├── backend
 │   │   ├── dsn-server
