@@ -64,6 +64,7 @@ const ignores = [
   '**/*.mjs',
   '**/*.d.ts',
   'eslint.config.mjs',
+  'README.md',
   'apps/frontend/monitor/src/components/ui/**/*'
 ];
 

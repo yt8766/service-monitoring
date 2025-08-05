@@ -4,6 +4,7 @@
 
 .local
 /node_modules/**
+README.md
 
 **/*.svg
 **/*.sh
