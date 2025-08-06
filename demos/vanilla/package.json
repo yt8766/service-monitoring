@@ -1,0 +1,16 @@
+{
+  "name": "vanilla",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sentinel/monitor-sdk-browser": "workspace:*",
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4"
+  }
+}

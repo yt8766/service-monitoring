@@ -6,6 +6,7 @@ import eslintPrettier from 'eslint-plugin-prettier';
 import eslintPluginVue from 'eslint-plugin-vue';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import { type } from 'os';
 
 // 前端配置
 const frontendConfig = {
@@ -56,6 +57,13 @@ const backendConfig = {
   }
 };
 
+const dtsConfig = {
+  files: ['**/*.d.ts'],
+  languageOptions: {
+    parser: tseslint.parser
+  }
+};
+
 const ignores = [
   'dist',
   'node_modules',
@@ -74,19 +82,25 @@ export default tseslint.config(
     ignores,
     extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     plugins: {
-      prettier: eslintPrettier
+      prettier: eslintPrettier,
+      tseslint
       // "simple-import-sort": importSort
     },
+
     rules: {
       'prettier/prettier': 'error',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-unused-vars': 'off'
       // "simple-import-sort/imports": "error",
       // "simple-import-sort/exports": "error"
+    },
+    languageOptions: {
+      parser: tseslint.parser
     }
   },
   // 前端配置
   frontendConfig,
   // 后端配置
-  backendConfig
+  backendConfig,
+  dtsConfig
 );
