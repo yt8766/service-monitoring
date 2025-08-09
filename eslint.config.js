@@ -1,12 +1,11 @@
 // eslint.config.mjs
 import eslint from '@eslint/js';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
 import eslintPrettier from 'eslint-plugin-prettier';
-import eslintPluginVue from 'eslint-plugin-vue';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import { type } from 'os';
+import eslintPluginVue from 'eslint-plugin-vue';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
 
 // 前端配置
 const frontendConfig = {
@@ -57,29 +56,33 @@ const backendConfig = {
   }
 };
 
-const dtsConfig = {
-  files: ['**/*.d.ts'],
-  languageOptions: {
-    parser: tseslint.parser
-  }
-};
+// const dtsConfig = {
+//   files: ['**/*.d.ts'],
+//   languageOptions: {
+//     parser: tseslint.parser
+//   }
+// };
 
 const ignores = [
   'dist',
   'node_modules',
   'build',
+  '**/node_modules/**',
+  '**/dist/**',
+  '**/build/**',
+  '**/*.d.ts',
   '**/*.js',
   '**/*.mjs',
-  '**/*.d.ts',
   'eslint.config.mjs',
   'README.md',
   'apps/frontend/monitor/src/components/ui/**/*'
 ];
 
 export default tseslint.config(
+  // 全局忽略，优先级最高
+  { ignores },
   // 通用配置
   {
-    ignores,
     extends: [eslint.configs.recommended, ...tseslint.configs.recommended],
     plugins: {
       prettier: eslintPrettier,
@@ -101,6 +104,6 @@ export default tseslint.config(
   // 前端配置
   frontendConfig,
   // 后端配置
-  backendConfig,
-  dtsConfig
+  backendConfig
+  // dtsConfig
 );

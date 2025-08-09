@@ -14,7 +14,10 @@ class Monitor {
   }
 
   init(transport: Transport) {
-    transport.send({});
+    transport.send({
+      dsn: this.dsn,
+      integrations: this.integrations
+    });
   }
 }
 

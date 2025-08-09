@@ -1,8 +1,8 @@
+import { init } from '@sentinel/monitor-sdk-browser';
+import { setupCounter } from './counter.ts';
 import './style.css';
 import typescriptLogo from './typescript.svg';
 import viteLogo from '/vite.svg';
-import { setupCounter } from './counter.ts';
-import { init } from '@sentinel/monitor-sdk-browser';
 
 init({
   dsn: 'http://localhost:3000/appid-xxxx'
