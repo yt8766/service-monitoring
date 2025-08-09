@@ -40,5 +40,9 @@ export default {
   endOfLine: 'auto',
   // 这两个选项可用于格式化以给定字符偏移量（分别包括和不包括）开始和结束的代码 (rangeStart：开始，rangeEnd：结束)
   rangeStart: 0,
-  rangeEnd: Infinity
+  rangeEnd: Infinity,
+  plugins: [
+    // 使用 Prettier 插件
+    'prettier-plugin-organize-imports'
+  ]
 };
