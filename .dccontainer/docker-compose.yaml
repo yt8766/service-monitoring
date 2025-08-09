@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  sentinel-monitor-clickhouse:
+    image: bitnami/clickhouse:25.5.2
+    container_name: sentinel-monitor-clickhouse
+    restart: always
+    ports:
+      - '8123:8123'
+      - '9000:9000'
+    environment:
+      CLICKHOUSE_USER: default
+      CLICKHOUSE_PASSWORD: 123456
+      CLICKHOUSE_DATABASE: default
+networks:
+  default:
+    name: sentinel-monitor-network
+    driver: bridge

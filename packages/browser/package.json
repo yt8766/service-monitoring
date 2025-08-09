@@ -1,6 +1,6 @@
 {
   "name": "@sentinel/monitor-sdk-browser",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "build/cjs/index.js",
   "module": "build/esm/index.mjs",
@@ -29,5 +29,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@sentinel/monitor-sdk-browser-utils": "workspace:*",
+    "@sentinel/monitor-sdk-core": "workspace:*"
+  }
 }
