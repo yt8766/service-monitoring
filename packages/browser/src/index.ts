@@ -1,35 +1,15 @@
-interface InitOptions {
-  dsn: string;
-  integrations?: any[];
-}
-
-type Transport = BrowserTransport;
-
-class Monitor {
-  dsn: string;
-  integrations: any[];
-  constructor(options: InitOptions) {
-    this.dsn = options.dsn;
-    this.integrations = options.integrations || [];
-  }
-
-  init(transport: Transport) {
-    transport.send({
-      dsn: this.dsn,
-      integrations: this.integrations
-    });
-  }
-}
-
-class BrowserTransport {
-  constructor(private dsn: string) {}
-  send(data: Record<string, any>) {
-    console.log('浏览器上报', data);
-  }
-}
-
-export const init = (options: InitOptions) => {
+import { Metrics } from '@sentinel/monitor-sdk-browser-utils';
+import { Monitor, MonitorOptions } from '@sentinel/monitor-sdk-core';
+import { Errors } from './tracing/errors';
+import { BrowserTransport } from './transport';
+export const init = (options: MonitorOptions) => {
   const monitor = new Monitor(options);
   const transport = new BrowserTransport(options.dsn);
   monitor.init(transport);
+
+  new Errors(transport).init();
+
+  new Metrics(transport).init();
+
+  return monitor;
 };
