@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   sentinel-monitor-clickhouse:
     image: bitnami/clickhouse:25.5.2
@@ -12,6 +10,18 @@ services:
       CLICKHOUSE_USER: default
       CLICKHOUSE_PASSWORD: 123456
       CLICKHOUSE_DATABASE: default
+  sentinel-monitor-postgres:
+    image: bitnami/postgresql:17.5.0
+    container_name: sentinel-monitor-postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRESQL_USERNAME=postgres
+      - POSTGRESQL_PASSWORD=123456
+      - POSTGRESQL_DATABASE=postgres
+    volumes:
+      - ./postgresql-data:/bitnami/postgresql
 networks:
   default:
     name: sentinel-monitor-network

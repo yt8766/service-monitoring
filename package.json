@@ -9,7 +9,7 @@
     "lint:eslint": "eslint --fix --ext .js,.ts,.mjs,.cjs,.tsx,.vue .",
     "spellcheck": "cspell lint  --no-progress --show-suggestions --no-summary --no-color \"(packages|apps)/**/*.{js,ts,mjs,cjs,json,tsx,css,less,scss,vue,html,md}\"",
     "prepare": "husky",
-    "docker:start": "docker compose -p duyi-monitor -f .dccontainer/docker-compose.yaml up -d"
+    "docker:start": "docker compose -p sentinel-monitor -f .dccontainer/docker-compose.yaml up -d"
   },
   "keywords": [],
   "author": "",

@@ -5,7 +5,7 @@ import typescriptLogo from './typescript.svg';
 import viteLogo from '/vite.svg';
 
 init({
-  dsn: 'http://localhost:3000/appid-xxxx'
+  dsn: '/dsn-api/storage/tracing'
 });
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
