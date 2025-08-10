@@ -22,6 +22,7 @@ export class Errors {
 
         this.transport.send({
           event_type: 'resourceError',
+          type: 'resource',
           filename: target.src || target.href,
           tagName: target.tagName,
           message: `加载${target.tagName}失败}`
@@ -32,6 +33,7 @@ export class Errors {
 
         this.transport.send({
           event_type: 'jsError',
+          type: 'js',
           filename,
           functionName,
           lineno,
@@ -54,6 +56,7 @@ export class Errors {
       //发送未处理的 Promise 拒绝错误
       this.transport.send({
         event_type: 'promiseError',
+        type: 'promise',
         filename,
         functionName,
         lineno,

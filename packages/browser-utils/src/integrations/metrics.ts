@@ -10,7 +10,7 @@ export class Metrics {
         // 发送性能指标到监控服务
         this.transport.send({
           event_type: 'performance',
-          type: 'web-vital',
+          type: 'web_vital',
           name: metric.name,
           value: metric.value,
           path: window.location.pathname

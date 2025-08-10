@@ -1,11 +1,14 @@
+import { getBrowserInfo } from '@sentinel/monitor-sdk-browser-utils';
 import { Transport } from '@sentinel/monitor-sdk-core';
 
 export class BrowserTransport implements Transport {
   constructor(private dsn: string) {}
 
   send(data: Record<string, unknown>): void {
+    const browserInfo = getBrowserInfo();
     const payload = {
-      ...data
+      ...data,
+      browserInfo
     };
 
     fetch(this.dsn, {
