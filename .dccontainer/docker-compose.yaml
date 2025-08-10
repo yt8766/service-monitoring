@@ -13,7 +13,6 @@ services:
   sentinel-monitor-postgres:
     image: bitnami/postgresql:17.5.0
     container_name: sentinel-monitor-postgres
-    restart: always
     ports:
       - '5432:5432'
     environment:
