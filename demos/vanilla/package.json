@@ -11,6 +11,6 @@
   "devDependencies": {
     "@sentinel/monitor-sdk-browser": "workspace:*",
     "typescript": "~5.8.3",
-    "vite": "^7.0.4"
+    "vite": "^7.1.1"
   }
 }
