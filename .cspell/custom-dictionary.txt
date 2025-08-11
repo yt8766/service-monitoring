@@ -4,4 +4,5 @@ bitnami
 clickhouse
 dsds
 dsdsd
+sonner
 TTFB
