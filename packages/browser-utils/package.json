@@ -1,5 +1,5 @@
 {
-  "name": "@sentinel/monitor-sdk-browser-utils",
+  "name": "@sentinel/browser-utils",
   "version": "0.1.0",
   "description": "",
   "main": "build/cjs/index.js",
@@ -31,7 +31,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
-    "@sentinel/monitor-sdk-core": "workspace:*",
+    "@sentinel/core": "workspace:*",
     "web-vitals": "^5.1.0"
   }
 }

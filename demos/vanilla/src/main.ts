@@ -1,4 +1,4 @@
-import { init } from '@sentinel/monitor-sdk-browser';
+import { init } from '@sentinel/browser';
 import { setupCounter } from './counter.ts';
 import './style.css';
 import typescriptLogo from './typescript.svg';

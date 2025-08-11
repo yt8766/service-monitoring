@@ -1,5 +1,5 @@
-import { Transport } from '@sentinel/monitor-sdk-core';
-import { getLastCaptureEvent, getPaths } from '../utils';
+import { Transport } from '@sentinel/core';
+import { getLastCaptureEvent, getPaths } from '@sentinel/shared';
 
 export class Errors {
   //限制追溯的错误堆栈数量
