@@ -37,12 +37,29 @@ const reportRequest = (url: string, data: string) => {
         'Content-Type': 'application/json'
       },
       body: data
-    });
+    })
+      .then((response: Response) => {
+        if (!response.ok) {
+          console.error('Error sending data:', response.statusText);
+        }
+      })
+      .catch(error => {
+        console.error('Error sending data:', error);
+      });
   } else {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.send(data);
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        // Successfully sent data
+        console.log('Successfully sent data');
+      } else {
+        // Error sending data
+        console.error('Error sending data');
+      }
+    };
   }
 };
 
@@ -73,5 +90,18 @@ export const report = (type: ReportType, data: Record<string, unknown>[], option
 
   if (isImmediate) {
     sendBeacon(url, reportData);
+    return;
+  }
+
+  if (isFunction(window.requestIdleCallback)) {
+    window.requestIdleCallback(deadline => {
+      if (deadline.timeRemaining() > 0 || deadline.didTimeout) {
+        sendBeacon(url, reportData);
+      }
+    });
+  } else {
+    setTimeout(() => {
+      sendBeacon(url, reportData);
+    });
   }
 };
