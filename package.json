@@ -16,6 +16,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@cspell/dict-lorem-ipsum": "^4.0.5",
     "@eslint/js": "^9.32.0",
     "@types/node": "^24.2.0",
@@ -32,6 +34,7 @@
     "prettier-plugin-organize-imports": "^4.2.0",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
-    "typescript-eslint": "^8.39.0"
+    "typescript-eslint": "^8.39.0",
+    "vanilla": "^0.0.5"
   }
 }

@@ -2,6 +2,7 @@ aaabb
 aaabbb
 bitnami
 clickhouse
+commitlint
 dsds
 dsdsd
 sonner

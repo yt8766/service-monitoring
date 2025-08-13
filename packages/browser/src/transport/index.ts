@@ -1,5 +1,5 @@
-import { getBrowserInfo } from '@sentinel/monitor-sdk-browser-utils';
-import { Transport } from '@sentinel/monitor-sdk-core';
+import { getBrowserInfo } from '@sentinel/browser-utils';
+import { Transport } from '@sentinel/core';
 
 export class BrowserTransport implements Transport {
   constructor(private dsn: string) {}
