@@ -1,16 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { Bug, CalendarCheck, Lightbulb, Package, Settings, Siren, Zap } from 'lucide-react';
+import { Bug, CalendarCheck, CircleGauge, Lightbulb, Package, Settings, Siren, Zap } from 'lucide-react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import * as srv from '@/services';
 import { queryClient } from '@/utils/query-client';
-import { toast } from 'sonner';
-
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import React from 'react';
+import { toast } from 'sonner';
 
 const menus = [
   {
@@ -38,7 +37,7 @@ const menus = [
   },
   {
     name: 'dashboard',
-    icon: Lightbulb,
+    icon: CircleGauge,
     title: '仪表板'
   },
   {
