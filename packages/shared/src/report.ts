@@ -1,12 +1,13 @@
 import { isFunction } from './general';
 import { getUniqueID } from './getUniqueID';
 
-interface MonitorConfig {
+export interface MonitorConfig {
   appId: string;
   userId: string;
   url: string;
   headers?: Record<string, string>;
   method?: 'POST' | 'GET';
+  trackerAll?: boolean;
 }
 
 export interface ReportOptions {
@@ -22,7 +23,8 @@ export const reportType = {
   CONSOLE: 'console',
   NETWORK: 'network',
   REQUEST: 'request',
-  RESPONSE: 'response'
+  RESPONSE: 'response',
+  ACTION: 'action'
 } as const;
 
 export type ReportType = (typeof reportType)[keyof typeof reportType];

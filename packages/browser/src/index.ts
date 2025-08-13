@@ -1,8 +1,10 @@
-import { Metrics } from '@sentinel/monitor-sdk-browser-utils';
-import { Monitor, MonitorOptions } from '@sentinel/monitor-sdk-core';
+import { Metrics } from '@sentinel/browser-utils';
+import { Monitor, MonitorOptions } from '@sentinel/core';
+import { autoTracker, tracker } from '@sentinel/shared';
 import { Errors } from './tracing/errors';
 import { BrowserTransport } from './transport';
-export const init = (options: MonitorOptions) => {
+
+const init = (options: MonitorOptions) => {
   const monitor = new Monitor(options);
   const transport = new BrowserTransport(options.dsn);
   monitor.init(transport);
@@ -13,3 +15,5 @@ export const init = (options: MonitorOptions) => {
 
   return monitor;
 };
+
+export { autoTracker, init, tracker };
