@@ -42,6 +42,7 @@ export const tracker = (event: Event, config: MonitorConfig) => {
   lazyReportCache('action', data, { config });
 };
 
+const TIMEOUT = 500;
 export const autoTracker = (config: MonitorConfig) => {
   const { trackerAll = false } = config;
 
@@ -55,42 +56,18 @@ export const autoTracker = (config: MonitorConfig) => {
         const dataTracker = isElement(target) ? target.getAttribute('data-tracker') : null;
 
         if (trackerAll || dataTracker) {
-          const x = isMouseEvent(event)
-            ? event.clientX
-            : isTouchEvent(event)
-              ? (event.touches?.[0]?.clientX ?? event.changedTouches?.[0]?.clientX)
-              : undefined;
-          const y = isMouseEvent(event)
-            ? event.clientY
-            : isTouchEvent(event)
-              ? (event.touches?.[0]?.clientY ?? event.changedTouches?.[0]?.clientY)
-              : undefined;
-
-          const value = isValueElement(target)
-            ? target.value
-            : isElement(target)
-              ? (target.textContent ?? '').trim()
-              : '';
-
-          const data: {
-            eventType: string;
-            targetName: string;
-            x?: number;
-            y?: number;
-            path: string;
-            value: string;
-          } = {
+          const data = {
             eventType: event.type,
             targetName: tagName || 'window',
-            x,
-            y,
+            x: isMouseEvent(event) ? event.clientX : undefined,
+            y: isMouseEvent(event) ? event.clientY : undefined,
             path: getPaths(event),
-            value
+            value: (target as HTMLInputElement).value || (target as HTMLTextAreaElement).textContent
           };
 
           lazyReportCache('action', data, { config });
         }
-      }, 500);
+      }, TIMEOUT);
     });
   });
 };
