@@ -1,5 +1,5 @@
 {
-  "name": "@sentinel/browser",
+  "name": "@sentinel/shared",
   "version": "0.1.0",
   "description": "",
   "main": "build/cjs/index.js",
@@ -31,8 +31,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "devDependencies": {
-    "@sentinel/browser-utils": "workspace:*",
     "@sentinel/core": "workspace:*",
-    "@sentinel/shared": "workspace:*"
+    "web-vitals": "^5.1.0"
   }
 }

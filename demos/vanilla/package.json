@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sentinel/monitor-sdk-browser": "workspace:*",
+    "@sentinel/browser": "workspace:*",
     "typescript": "~5.8.3",
     "vite": "^7.1.1"
   }

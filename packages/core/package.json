@@ -1,5 +1,5 @@
 {
-  "name": "@sentinel/monitor-sdk-core",
+  "name": "@sentinel/core",
   "version": "0.1.0",
   "description": "",
   "main": "build/cjs/index.js",
