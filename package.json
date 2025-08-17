@@ -5,11 +5,22 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "build:watch": "turbo build:watch",
+    "build:lib": "turbo build:lib",
+    "build:server": "turbo build:server",
+    "start:dev": "turbo start:dev",
+    "dev": "turbo dev",
+    "build": "pnpm build:server & pnpm build:lib",
+    "build:shared": "node ./scripts/build.js -f shared & pnpm  -C ./packages/shared build:lib",
+    "build:core": "node ./scripts/build.js -f core && pnpm -C ./packages/core build:lib",
+    "build:browser-utils": "node ./scripts/build.js -f browser-utils && pnpm -C ./packages/browser-utils build:lib",
+    "build:browser": "node ./scripts/build.js -f browser & pnpm -C ./packages/browser build:lib",
     "lint:prettier": "prettier --write \"**/*.{js,ts,mjs,cjs,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:eslint": "eslint --fix --ext .js,.ts,.mjs,.cjs,.tsx,.vue .",
     "spellcheck": "cspell lint  --no-progress --show-suggestions --no-summary --no-color \"(packages|apps)/**/*.{js,ts,mjs,cjs,json,tsx,css,less,scss,vue,html,md}\"",
     "prepare": "husky",
-    "docker:start": "docker compose -p sentinel-monitor -f .dccontainer/docker-compose.yaml up -d"
+    "docker:start": "docker compose -p sentinel-monitor -f .dccontainer/docker-compose.yaml up -d",
+    "test": "pnpm lint:prettier && pnpm lint:eslint && pnpm spellcheck"
   },
   "keywords": [],
   "author": "",
@@ -33,6 +44,7 @@
     "prettier": "^3.6.2",
     "prettier-plugin-organize-imports": "^4.2.0",
     "tsup": "^8.5.0",
+    "turbo": "^2.5.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.39.0",
     "vanilla": "^0.0.5"
