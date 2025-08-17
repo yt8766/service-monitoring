@@ -1,9 +1,8 @@
+import { config } from './config';
 import { isElement, isMouseEvent, isTouchEvent, isValueElement } from './general';
 import { lazyReportCache } from './lazyReportCache';
 import { getPaths } from './paths';
-import { MonitorConfig } from './report';
-
-export const tracker = (event: Event, config: MonitorConfig) => {
+export const tracker = (event: Event) => {
   const { trackerAll = false } = config;
   if (trackerAll) return;
 
@@ -25,6 +24,7 @@ export const tracker = (event: Event, config: MonitorConfig) => {
 
   const data: {
     eventType: string;
+    type: string;
     tagName?: string;
     x?: number;
     y?: number;
@@ -32,6 +32,7 @@ export const tracker = (event: Event, config: MonitorConfig) => {
     value: string;
   } = {
     eventType: event.type,
+    type: 'tracker',
     tagName,
     x,
     y,
@@ -39,11 +40,11 @@ export const tracker = (event: Event, config: MonitorConfig) => {
     value
   };
 
-  lazyReportCache('action', data, { config });
+  lazyReportCache('action', data);
 };
 
 const TIMEOUT = 500;
-export const autoTracker = (config: MonitorConfig) => {
+export const autoTracker = () => {
   const { trackerAll = false } = config;
 
   ['click', 'keydown', 'keyup', 'blur', 'focus', 'touchstart', 'touchend'].forEach(eventType => {
@@ -57,7 +58,8 @@ export const autoTracker = (config: MonitorConfig) => {
 
         if (trackerAll || dataTracker) {
           const data = {
-            eventType: event.type,
+            event_type: event.type,
+            type: 'autoTracker',
             targetName: tagName || 'window',
             x: isMouseEvent(event) ? event.clientX : undefined,
             y: isMouseEvent(event) ? event.clientY : undefined,
@@ -65,7 +67,7 @@ export const autoTracker = (config: MonitorConfig) => {
             value: (target as HTMLInputElement).value || (target as HTMLTextAreaElement).textContent
           };
 
-          lazyReportCache('action', data, { config });
+          lazyReportCache('action', data);
         }
       }, TIMEOUT);
     });

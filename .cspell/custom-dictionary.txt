@@ -5,6 +5,8 @@ clickhouse
 commitlint
 dsds
 dsdsd
+iconify
 nums
 sonner
 TTFB
+vanillal

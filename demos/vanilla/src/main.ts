@@ -5,13 +5,17 @@ import typescriptLogo from './typescript.svg';
 import viteLogo from '/vite.svg';
 
 init({
-  dsn: '/dsn-api/storage/tracing'
+  dsn: '/dsn-api/storage/tracing/vanillalPl6bV'
 });
+
+// fn();
+Promise.reject(new Error('测试未捕获的错误'));
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
     <a href="https://vite.dev" target="_blank">
       <img src="${viteLogo}" class="logo" alt="Vite logo" />
+      <img src="11" class="logo vanilla" alt="Vanilla logo" />
     </a>
     <a href="https://www.typescriptlang.org/" target="_blank">
       <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />

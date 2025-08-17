@@ -10,4 +10,15 @@ export class ApplicationService {
     await this.applicationRepository.save(application);
     return application;
   }
+
+  async findAll(params: { userId: number }) {
+    const { userId } = params;
+    const [data, total] = await this.applicationRepository.findAndCount({
+      where: { admin: { id: userId } }
+    });
+    return {
+      applications: data,
+      total
+    };
+  }
 }

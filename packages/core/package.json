@@ -24,7 +24,7 @@
     "build:watch": "tsup --watch",
     "build:watch:types": "tsc -p tsconfig.types.json --watch",
     "watch": "pnpm build:watch & pnpm build:watch:types",
-    "build": "pnpm build:transpile & pnpm build:types"
+    "build:lib": "pnpm build:transpile & pnpm build:types"
   },
   "keywords": [],
   "author": "",

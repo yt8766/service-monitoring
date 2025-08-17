@@ -22,12 +22,6 @@ export class BrowserTransport implements Transport {
     //   console.error('上报数据失败:', error);
     // });
 
-    lazyReportCache('error', payload, {
-      config: {
-        appId: 'your-app-id',
-        userId: 'your-user-id',
-        url: 'your-url'
-      }
-    });
+    lazyReportCache('browser', payload);
   }
 }

@@ -24,3 +24,7 @@ export const isValueElement = (
 export const isMouseEvent = (e: Event): e is MouseEvent => e instanceof MouseEvent;
 export const isTouchEvent = (e: Event): e is TouchEvent =>
   (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent) || 'touches' in e || 'changedTouches' in e;
+
+export const log = (message: string) => console.log(message);
+
+export const round = Math.round;

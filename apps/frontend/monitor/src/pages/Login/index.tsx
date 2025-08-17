@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { login } from '@/services';
+import * as services from '@/services';
 import { CreateUserPayload } from '@/types/api';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -19,7 +19,7 @@ export function Login() {
 
   const handleSubmit = async (values: CreateUserPayload) => {
     try {
-      const res = await login({
+      const res = await services.login({
         ...values
       });
 
