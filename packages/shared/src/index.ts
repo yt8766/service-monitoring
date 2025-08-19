@@ -5,7 +5,7 @@ export { getLastCaptureEvent } from './captureEvent';
 export { config, setConfig } from './config';
 export type { ConfigOptions } from './config';
 export { error, parseStackFrames, parseStackLine } from './error';
-export { round } from './general';
+export * from './general';
 export { getUniqueID } from './getUniqueID';
 export { lazyReportCache } from './lazyReportCache';
 export { getPaths } from './paths';

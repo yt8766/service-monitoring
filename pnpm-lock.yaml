@@ -314,9 +314,6 @@ importers:
 
   demos/react:
     dependencies:
-      '@sentinel/react':
-        specifier: workspace:*
-        version: link:../../packages/react
       react:
         specifier: ^19.1.1
         version: 19.1.1
@@ -327,6 +324,9 @@ importers:
       '@eslint/js':
         specifier: ^9.33.0
         version: 9.33.0
+      '@sentinel/react':
+        specifier: workspace:*
+        version: link:../../packages/react
       '@types/react':
         specifier: ^19.1.10
         version: 19.1.10
@@ -369,9 +369,6 @@ importers:
 
   demos/vue:
     dependencies:
-      '@sentinel/vue':
-        specifier: workspace:*
-        version: link:../../packages/vue
       pinia:
         specifier: ^3.0.3
         version: 3.0.3(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
@@ -382,6 +379,9 @@ importers:
         specifier: ^4.5.1
         version: 4.5.1(vue@3.5.18(typescript@5.8.3))
     devDependencies:
+      '@sentinel/vue':
+        specifier: workspace:*
+        version: link:../../packages/vue
       '@tsconfig/node22':
         specifier: ^22.0.2
         version: 22.0.2
