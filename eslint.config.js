@@ -36,8 +36,7 @@ const frontendConfig = {
       {
         allowConstantExport: true
       }
-    ],
-    'no-console': 'error'
+    ]
   }
 };
 
@@ -73,7 +72,8 @@ const ignores = [
   '**/*.d.ts',
   '**/*.js',
   '**/*.mjs',
-  'eslint.config.mjs',
+  'demos/**',
+  'eslint.config.js',
   'README.md',
   'apps/frontend/monitor/src/components/ui/**/*'
 ];

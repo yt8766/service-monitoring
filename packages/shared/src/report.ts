@@ -1,17 +1,8 @@
+import { config } from './config';
 import { isFunction } from './general';
 import { getUniqueID } from './getUniqueID';
 
-export interface MonitorConfig {
-  appId: string;
-  userId: string;
-  url: string;
-  headers?: Record<string, string>;
-  method?: 'POST' | 'GET';
-  trackerAll?: boolean;
-}
-
 export interface ReportOptions {
-  config: MonitorConfig;
   isImmediate?: boolean;
 }
 export const reportType = {
@@ -24,22 +15,26 @@ export const reportType = {
   NETWORK: 'network',
   REQUEST: 'request',
   RESPONSE: 'response',
-  ACTION: 'action'
+  ACTION: 'action',
+  BEHAVIOR: 'behavior',
+  API: 'api',
+  BROWSER: 'browser',
+  VUE: 'vue',
+  REACT: 'react'
 } as const;
 
 export type ReportType = (typeof reportType)[keyof typeof reportType];
-
 const uniqueID = getUniqueID();
-
 const reportRequest = (url: string, data: string) => {
   if (isFunction(window.fetch)) {
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: data
-    })
+    window
+      .fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: data
+      })
       .then((response: Response) => {
         if (!response.ok) {
           console.error('Error sending data:', response.statusText);
@@ -66,18 +61,18 @@ const reportRequest = (url: string, data: string) => {
 };
 
 const sendBeacon = (url: string, data: string) => {
-  if (isFunction(navigator.sendBeacon)) {
-    navigator.sendBeacon(url, data);
-  } else {
-    reportRequest(url, data);
-  }
+  // if (isFunction(navigator.sendBeacon)) {
+  //   navigator.sendBeacon(url, data);
+  // } else {
+  reportRequest(url, data);
+  // }
 };
 
-export const report = (type: ReportType, data: Record<string, unknown>[], options: ReportOptions) => {
-  const { config, isImmediate = false } = options;
-  const { url, appId, userId } = config;
-  if (!url) {
-    return console.error('report url is empty');
+export const report = (type: ReportType, data: Record<string, unknown>[], options: ReportOptions = {}) => {
+  const { isImmediate = false } = options;
+  const { dsn, appId, userId } = config;
+  if (!dsn) {
+    return console.error('report dsn is empty');
   }
 
   const reportData = JSON.stringify({
@@ -91,19 +86,19 @@ export const report = (type: ReportType, data: Record<string, unknown>[], option
   });
 
   if (isImmediate) {
-    sendBeacon(url, reportData);
+    sendBeacon(dsn, reportData);
     return;
   }
 
   if (isFunction(window.requestIdleCallback)) {
     window.requestIdleCallback(deadline => {
       if (deadline.timeRemaining() > 0 || deadline.didTimeout) {
-        sendBeacon(url, reportData);
+        sendBeacon(dsn, reportData);
       }
     });
   } else {
     setTimeout(() => {
-      sendBeacon(url, reportData);
+      sendBeacon(dsn, reportData);
     });
   }
 };

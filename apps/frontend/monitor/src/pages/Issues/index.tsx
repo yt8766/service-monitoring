@@ -51,7 +51,8 @@ export function Issues() {
     queryFn: async () => {
       const res = await fetch('/dsn-api/storage/bugs');
       const issues = await res.json();
-      const parsedIssues = issues.map((issue: IssueRes, index: number) => ({
+
+      const parsedIssues = issues.data.map((issue: IssueRes, index: number) => ({
         id: index + 1,
         title: issue.info.type,
         description: issue.message,

@@ -1,5 +1,5 @@
 packages:
-  - "packages/*"
-  - "apps/frontend"
-  - "apps/backend"
-  - "demos/*"
+  - 'packages/*'
+  - 'apps/frontend/*'
+  - 'apps/backend/*'
+  - 'demos/*'

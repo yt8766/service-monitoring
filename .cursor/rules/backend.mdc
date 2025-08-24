@@ -1,0 +1,70 @@
+---
+description: 后端规则（自动附加到 apps/backend/** 下的文件），规范认证、安全、API、日志与 ClickHouse 采集
+globs:
+  - apps/backend/**
+alwaysApply: false
+---
+
+# 后端规则（apps/backend/\*）
+
+[技术与约定]
+
+- NestJS + TypeORM（PostgreSQL）+ ClickHouse；包管理使用 pnpm；Turborepo 工作流。
+- TypeScript 严格模式，避免 `any`；公共类型集中管理并复用。
+- 最小必要“编辑”，不重排无关代码；严格保持原有缩进与风格。
+
+[配置与安全]
+
+- 禁止在代码中硬编码任何秘密（JWT secret、DB 账号等）；统一使用环境变量。
+- 生产禁用 TypeORM `synchronize: true`；提供迁移脚本与文档。
+- 启用安全中间件：`helmet`、精确 `CORS` 白名单、请求体大小限制、`rate limit`。
+- 全局启用 `ValidationPipe({ whitelist: true, transform: true })` 并结合 `class-validator` 的 DTO。
+
+[认证与授权]
+
+- `LocalStrategy`：仅负责用户名/密码校验；禁止在 Controller 中自行校验。
+- `AuthController.login`：只使用 `req.user`（由 Guard 注入）签发 JWT。
+- `JwtStrategy.validate`：根据 `payload.sub(userId)` 或 `username` 查询用户，不要求密码；JWT 负载仅包含必要字段（`sub`、`username`、可选 `role`）。
+- 密码存储：使用 `bcrypt` 哈希；校验使用 `bcrypt.compare`；禁止明文。
+
+[API 设计]
+
+- 统一响应结构：`{ code, success, data, message }`；在拦截器中统一返回格式。
+- 异常：全局异常过滤器进行结构化处理并打点。
+- 控制器的入参一律使用 DTO，禁止使用 `any`；GET 不携带 body。
+
+[日志与可观测性]
+
+- 结构化日志，输出 `requestId`、路由、耗时、状态码；避免在日志打印敏感数据。
+- 对关键路径增加性能埋点与错误告警（可接入飞书/钉钉 Webhook）。
+
+[采集服务（dsn-server）与 ClickHouse]
+
+- 请求体解析：禁止读取 `req._readableState.buffer`；统一 `application/json` 解析，或配置原始体（raw body）中间件。
+- 入库：使用 ClickHouse 批量 `insert`（JSONEachRow），按条数或时间窗口聚合；失败重试与错误日志。
+- 数据治理：事件字段白名单、单事件大小限制（如 < 10KB）、敏感字段脱敏、去重/合并策略。
+
+[性能与扩展]
+
+- 数据库连接池合理配置；对高频接口启用缓存/限流。
+- 长耗时任务异步化或队列化（如批量入库）；避免阻塞请求线程。
+
+[测试与 CI]
+
+- 提交前要求：`pnpm -w lint`、`pnpm -w typecheck`、最小 UT/集成测试。
+- 在 CI 中区分 dev/prod 配置；确保敏感配置仅在安全环境注入。
+
+[PR 检查清单（后端）]
+
+- [ ] DTO 与校验完整；
+- [ ] JWT 负载不含敏感数据；登录与校验链路正确；
+- [ ] ClickHouse 使用批量写入且具备错误处理；
+- [ ] 日志结构化且无敏感信息；
+- [ ] 配置通过环境变量注入；`synchronize` 在生产关闭。
+
+@apps/backend/moitor-server/src/auth/auth.controller.ts
+@apps/backend/moitor-server/src/auth/auth.service.ts
+@apps/backend/moitor-server/src/auth/jwt.strategy.ts
+@apps/backend/moitor-server/src/auth/local.strategy.ts
+@apps/backend/dsn-server/src/storage/storage.controller.ts
+@apps/backend/dsn-server/src/storage/storage.service.ts

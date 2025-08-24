@@ -1,4 +1,11 @@
 export { autoTracker, tracker } from './action';
+export { api } from './api';
+export { pageChange, pageStayTime, pv } from './behavior';
 export { getLastCaptureEvent } from './captureEvent';
+export { config, setConfig } from './config';
+export type { ConfigOptions } from './config';
+export { error, parseStackFrames, parseStackLine } from './error';
+export * from './general';
+export { getUniqueID } from './getUniqueID';
 export { lazyReportCache } from './lazyReportCache';
 export { getPaths } from './paths';
