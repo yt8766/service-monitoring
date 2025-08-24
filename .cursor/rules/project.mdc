@@ -1,0 +1,19 @@
+---
+description: 项目范围通用约束与前/后端规则索引（始终生效）
+globs:
+  - '**/*'
+alwaysApply: true
+---
+
+# 规则索引（service-monitoring）
+
+本项目规则已按前后端拆分，请分别查看：
+
+- 前端规则：`./frontend.mdc`
+- 后端规则：`./backend.mdc`
+
+全局通用约束：
+
+- 使用 pnpm + Turborepo；提交前执行 lint 与 typecheck。
+- TypeScript 严格类型，避免 any；最小必要编辑；生产关闭 console 输出。
+- 不在仓库中硬编码任何秘密，统一通过环境变量注入。
