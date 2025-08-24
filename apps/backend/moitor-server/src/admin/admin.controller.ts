@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Inject, Post, Request, Res, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Req, Request, Res, UseGuards, ValidationPipe } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthGuard } from '@nestjs/passport';
 import { Response } from 'express';
+import { AuthService } from '../auth/auth.service';
 import { AdminService } from './admin.service';
 import { LoginAdminDto } from './dto/login-admin.dto';
 import { RegisterAdminDto } from './dto/register-admin.dto';
@@ -10,10 +11,18 @@ import { RegisterAdminDto } from './dto/register-admin.dto';
 export class AdminController {
   @Inject()
   private readonly jwtStrategy: JwtService;
+
+  @Inject(AuthService)
+  private authService: AuthService;
   constructor(private readonly adminService: AdminService) {}
 
+  @UseGuards(AuthGuard('local'))
+  @Post('loginPassport')
+  async loginPassport(@Req() req) {
+    return this.authService.login(req.user);
+  }
   @Post('login')
-  async login(@Body() body: LoginAdminDto, @Res({ passthrough: true }) res: Response) {
+  async login(@Body(ValidationPipe) body: LoginAdminDto, @Res({ passthrough: true }) res: Response) {
     const result = await this.adminService.login(body);
     if (result) {
       const token = await this.jwtStrategy.signAsync({
@@ -25,11 +34,15 @@ export class AdminController {
           role: result.role
         }
       });
+      delete result.password;
 
       res.header('Authorization', token);
       return {
         message: 'Login successfully',
-        data: result,
+        data: {
+          ...result,
+          access_token: token
+        },
         success: true,
         code: 200
       };
@@ -43,11 +56,6 @@ export class AdminController {
     }
   }
 
-  @Get('')
-  admin() {
-    return 'admin';
-  }
-
   @Get('whoami')
   @UseGuards(AuthGuard('jwt'))
   async whoami(@Request() req) {
@@ -55,7 +63,7 @@ export class AdminController {
   }
 
   @Post('register')
-  async register(@Body() body: RegisterAdminDto) {
+  async register(@Body(ValidationPipe) body: RegisterAdminDto) {
     const result = await this.adminService.register(body);
     return result;
   }

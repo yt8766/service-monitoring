@@ -46,19 +46,20 @@ export class AdminService {
     newAdmin.password = md5(admin.password);
     newAdmin.email = admin.email;
     newAdmin.phone = admin.phone;
-    newAdmin.role = 'admin';
+    newAdmin.role = admin.role || 'admin';
 
     try {
       await this.adminRepository.save(newAdmin);
+      delete newAdmin.password;
       return {
-        code: 0,
+        code: 200,
         success: true,
         message: 'Register successfully',
         data: newAdmin
       };
     } catch (error) {
       return {
-        code: 1,
+        code: 400,
         success: false,
         message: `Register failed ${error.message}`,
         data: null
