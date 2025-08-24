@@ -1,0 +1,73 @@
+---
+description: 前端规则（自动附加到 apps/frontend/monitor/** 下的文件），规范请求层、会话、类型、安全与工程化
+globs:
+  - apps/frontend/monitor/**
+alwaysApply: false
+---
+
+# 前端规则（apps/frontend/monitor）
+
+[技术与约定]
+
+- 使用 React + Vite + TypeScript，包管理使用 pnpm；遵循 Monorepo/Turborepo 工作流。
+- TypeScript 严格模式（strict: true），严禁 `any`；组件/Hook/服务均需类型化。
+- 最小必要“编辑”，不重排无关代码；严格保持原有缩进与风格。
+
+[请求与会话]
+
+- 统一在 `src/utils/request.ts` 创建 axios 实例，`baseURL: '/api'`，`timeout: 5000`。
+- 请求拦截：自动附加 `Authorization: Bearer <token>`（从 `utils/token.ts` 读取）。
+- 响应拦截：统一解包后端 `{ code, success, data, message }`；
+  - `401`：清空本地 token，跳转 `/login`（避免重定向循环）。
+  - 其他错误：统一 toast/日志，页面层仅处理业务分支。
+- 服务函数需使用泛型：`request.get<T>(url)`/`request.post<T>(url, body)`，并在 `types/api.ts` 定义 T。
+- 登录成功后调用 `whoami` 缓存用户信息；鉴权由 `components/AuthChecker` 统一拦截。
+- 如条件允许，优先考虑使用 httpOnly Cookie 管理会话（需后端支持）。
+
+[类型与结构]
+
+- 所有接口请求/响应类型集中在 `src/types/api.ts` 并复用；页面/服务层不得使用 `any`。
+- 组件 Props/State、Hook 返回值、React Query 的 `queryFn`/`select` 均需类型约束。
+- 统一响应结构类型：`ApiResponse<T> = { code: number; success: boolean; data: T; message?: string }`。
+
+[状态与数据]
+
+- 统一使用 React Query：默认 `retry: 3`、`staleTime: 5min`，针对关键接口按需覆盖。
+- QueryKey 需稳定可序列化；分页/筛选参数纳入 key。
+- 重要页面具备 `loading/empty/error` 三态表现。
+
+[组件与页面]
+
+- 表单：使用 `react-hook-form`，在组件内做最小校验提示；复杂规则在服务端校验。
+- 表格/图表：抽象通用组件，支持空态与错误态；大列表建议虚拟滚动。
+- 路由：`react-router` 管理私有路由；未登录跳转登录，登录后支持 `redirect` 回跳。
+
+[性能与可用性]
+
+- 按路由/模块进行代码分割；首屏采用懒加载与骨架屏。
+- 列表与重渲染组件使用 `memo/useMemo/useCallback`；使用 `key` 保持稳定性。
+- 避免在渲染中创建新对象/函数；避免在 effect 中无依赖错误使用。
+
+[日志与安全]
+
+- 生产环境禁用 `console.*`，如需调试用轻量日志器并按环境开关。
+- 不渲染任何不可信的 HTML；涉及富文本需使用可信的白名单方案。
+- 不在前端存放敏感信息；Token 若保存在 `localStorage`，需最小权限与最短有效期。
+
+[构建与工程]
+
+- 环境变量：使用 `import.meta.env`，不得在前端暴露敏感配置。
+- 提交前要求：`pnpm -w lint` 与 `pnpm -w typecheck (tsc --noEmit)`。
+- 推荐最小单测：`@testing-library/react` 进行组件行为测试。
+
+[PR 检查清单（前端）]
+
+- [ ] 服务层/页面无 `any`，类型齐全；
+- [ ] 请求层错误处理与 401 流程正确；
+- [ ] 关键页面具备加载/空/错误三态；
+- [ ] 重要渲染点有 memo 化与代码分割；
+- [ ] 未暴露敏感配置，控制台输出符合规范。
+
+@apps/frontend/monitor/src/utils/request.ts
+@apps/frontend/monitor/src/types/api.ts
+@apps/frontend/monitor/src/components/AuthChecker/index.tsx
