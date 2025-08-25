@@ -62,6 +62,17 @@ export class AdminController {
     return req.user;
   }
 
+  @Get('list')
+  async list() {
+    const result = await this.adminService.list();
+    return {
+      message: 'List successfully',
+      data: result,
+      success: true,
+      code: 200
+    };
+  }
+
   @Post('register')
   async register(@Body(ValidationPipe) body: RegisterAdminDto) {
     const result = await this.adminService.register(body);

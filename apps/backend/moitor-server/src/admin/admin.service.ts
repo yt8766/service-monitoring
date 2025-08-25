@@ -66,4 +66,13 @@ export class AdminService {
       };
     }
   }
+
+  async list() {
+    const admins = await this.adminRepository.find({
+      order: {
+        username: 'ASC'
+      }
+    });
+    return admins;
+  }
 }

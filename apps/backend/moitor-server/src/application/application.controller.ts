@@ -22,7 +22,7 @@ export class ApplicationController {
       data: result,
       success: true,
       message: 'Application created successfully',
-      code: 0
+      code: 200
     };
   }
 
@@ -33,7 +33,7 @@ export class ApplicationController {
       data: list,
       success: true,
       message: 'Application list fetched successfully',
-      code: 0
+      code: 200
     };
   }
 }

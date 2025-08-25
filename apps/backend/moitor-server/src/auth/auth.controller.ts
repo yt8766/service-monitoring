@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('/login')
+  @Post('login')
   @UseGuards(AuthGuard('local'))
   async login(@Body() body) {
     const data = await this.authService.login(body);
@@ -17,13 +17,13 @@ export class AuthController {
     };
   }
 
-  @Get('/whoami')
+  @Get('whoami')
   @UseGuards(AuthGuard('jwt'))
   async whoami(@Request() req) {
     return req.user;
   }
 
-  @Get('/validate')
+  @Get('validate')
   async validate(@Body() body) {
     return this.authService.validateUser(body.username, body.password);
   }
