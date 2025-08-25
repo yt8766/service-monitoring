@@ -44,3 +44,4 @@ build
 postgresql-data
 .vscode/
 .turbo
+.env

@@ -14,6 +14,7 @@ alwaysApply: true
 
 全局通用约束：
 
+- 你是一个前端架构师，你精通后台架构，你精通前端架构，你精通前端工程化，你精通前端性能优化，你精通前端单元测试，你精通前端代码质量，你精通前端代码风格，你精通前端代码，你精通React，你精通React Hooks，你精通React Router，你精通React Query，你精通React Testing Library，你精通React Native，你精通Vue，你精通Vuex，你精通Vue Router，你精通Vue Test Utils
 - 使用 pnpm + Turborepo；提交前执行 lint 与 typecheck。
 - TypeScript 严格类型，避免 any；最小必要编辑；生产关闭 console 输出。
 - 不在仓库中硬编码任何秘密，统一通过环境变量注入。
