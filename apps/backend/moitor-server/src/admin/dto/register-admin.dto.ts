@@ -1,4 +1,4 @@
-import { IsEmail, IsNotEmpty, IsString, Length, Matches } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, Length, Matches } from 'class-validator';
 
 export class RegisterAdminDto {
   @IsNotEmpty()
@@ -10,16 +10,31 @@ export class RegisterAdminDto {
   @IsNotEmpty()
   @IsString()
   @Length(6, 16)
-  @Matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/, {
-    message: '密码只能包含字母、数字和特殊符号_、%、$，并且至少包含字母和数字'
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d_%$]+$/, {
+    message: '密码只能包含字母、数字和特殊符号_、%、$,并且至少包含一个大小写字母和数字'
   })
   password: string;
 
-  @IsEmail({}, { message: '邮箱格式不正确' })
+  @IsString()
+  @IsOptional()
+  @Matches(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    {
+      message: '邮箱格式不正确'
+    }
+  )
   email: string;
 
   @IsString()
+  @IsOptional()
   @Length(11, 11)
-  @Matches(/^1[3-9]\d{9}$/, { message: '手机号格式不正确' })
+  @Matches(
+    /^(?:(?:\+|00)86)?1(?:(?:3[\d])|(?:4[5-79])|(?:5[0-35-9])|(?:6[5-7])|(?:7[0-8])|(?:8[\d])|(?:9[1589]))\d{8}$/,
+    { message: '手机号格式不正确' }
+  )
   phone: string;
+
+  @IsString()
+  @IsOptional()
+  role: string;
 }
