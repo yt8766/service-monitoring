@@ -5,14 +5,14 @@ import { request } from '@/utils';
  * 用户登录
  */
 export async function login(data: LoginPayload) {
-  return await request.post('/auth/login', data);
+  return await request.post('/admin/login', data);
 }
 
 /**
  * 获取当前用户信息
  */
 export async function currentUser(): Promise<CurrentUserRes> {
-  return await request.get('/auth/whoami');
+  return await request.get('/admin/whoami');
 }
 
 /**
