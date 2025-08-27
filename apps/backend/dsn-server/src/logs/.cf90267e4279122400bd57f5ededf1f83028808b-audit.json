@@ -1,0 +1,20 @@
+{
+  "keep": {
+    "days": true,
+    "amount": 14
+  },
+  "auditLog": "D:\\渡一资料\\service-monitoring\\apps\\backend\\dsn-server\\src\\logs\\.cf90267e4279122400bd57f5ededf1f83028808b-audit.json",
+  "files": [
+    {
+      "date": 1756307321199,
+      "name": "D:\\渡一资料\\service-monitoring\\apps\\backend\\dsn-server\\src\\logs\\app-2025-08-27.info.log",
+      "hash": "3910decead40b8ffa470faabf23e024bf91619610b4280bd841f60c7203dd73b"
+    },
+    {
+      "date": 1756310400880,
+      "name": "D:\\渡一资料\\service-monitoring\\apps\\backend\\dsn-server\\src\\logs\\app-2025-08-28.info.log",
+      "hash": "f5adc220f84faf352c5be4b24fa21bea8cc6d65d5ab8d11f50b23f144fd355af"
+    }
+  ],
+  "hashType": "sha256"
+}
