@@ -40,7 +40,8 @@ node_modules/
 jscoverage_lib/  
 bower_components/  
 dist/ 
-build
+build/
+logs/
 postgresql-data
 .vscode/
 .turbo

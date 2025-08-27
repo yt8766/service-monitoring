@@ -29,7 +29,7 @@ export const reactErrorHandler = (
   //获取事件的执行路径
   const paths = getPaths(lastEvent as Event);
 
-  //上报vue错误 todo...
+  //上报React错误 todo...
   const errs = parseStackFrames(error as Error);
 
   const { filename, functionName, lineno, colno } = errs[0] || {};
