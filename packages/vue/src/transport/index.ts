@@ -1,5 +1,5 @@
 import { getBrowserInfo } from '@sentinel/browser-utils';
-import { lazyReportCache } from '@sentinel/shared';
+import { lazyReportCache } from '@sentinel/core';
 
 export class VueTransport {
   constructor(private dsn: string) {}

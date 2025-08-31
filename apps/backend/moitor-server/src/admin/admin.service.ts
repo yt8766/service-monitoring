@@ -46,7 +46,7 @@ export class AdminService {
     newAdmin.password = md5(admin.password);
     newAdmin.email = admin.email;
     newAdmin.phone = admin.phone;
-    newAdmin.role = admin.role || 'admin';
+    newAdmin.role = admin.role || 'user';
 
     try {
       await this.adminRepository.save(newAdmin);

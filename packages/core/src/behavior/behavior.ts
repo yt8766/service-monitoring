@@ -1,13 +1,7 @@
-import { log } from './general';
-import { lazyReportCache } from './lazyReportCache';
-import { report } from './report';
-// Extend Navigator type to include 'connection'
-interface NavigatorWithConnection extends Navigator {
-  connection?: {
-    effectiveType?: string;
-    rtt?: number;
-  };
-}
+import { log } from '@sentinel/shared';
+import { lazyReportCache } from '../lazyReportCache/lazyReportCache';
+import { report } from '../report/report';
+import type { NavigatorWithConnection } from '../types';
 const connection = (navigator as NavigatorWithConnection).connection;
 
 const getNetworkType = (key: string) => {
@@ -25,7 +19,7 @@ export const pv = () => {
     event_type: 'behavior',
     subType: 'pv',
     type: 'pv',
-    referrer: document.referrer,
+    referrer: document.referrer || '',
     effectiveType: getNetworkType('effectiveType'), // 网络连接类型
     rtt: connection ? connection.rtt : 0 // 往返时间
   });

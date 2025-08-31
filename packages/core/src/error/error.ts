@@ -1,9 +1,6 @@
-import { getLastCaptureEvent } from './captureEvent';
-import { getPaths } from './paths';
-
-interface Transport {
-  send(data: Record<string, unknown>): void;
-}
+import { getLastCaptureEvent } from '../captureEvent/captureEvent';
+import { getPaths } from '../paths/paths';
+import type { Transport } from '../transport';
 
 const STACK_TRACE_LIMIT = 10;
 const FULL_MATCH =
@@ -61,7 +58,7 @@ export const error = (transport: Transport) => {
           type: 'resourceError',
           filename: target.src || target.href,
           tagName: target.tagName,
-          message: `加载${target.tagName}失败}`
+          message: `加载${target.tagName}失败`
         });
       } else {
         const errs = parseStackFrames(event.error as Error);

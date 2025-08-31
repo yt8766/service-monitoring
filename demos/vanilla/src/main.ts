@@ -7,7 +7,7 @@ import viteLogo from '/vite.svg';
 init({
   dsn: '/dsn-api/storage/tracing/vanillalPl6bV'
 });
-
+console.log('init');
 // fn();
 Promise.reject(new Error('测试未捕获的错误'));
 

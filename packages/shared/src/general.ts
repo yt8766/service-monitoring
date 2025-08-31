@@ -25,6 +25,12 @@ export const isMouseEvent = (e: Event): e is MouseEvent => e instanceof MouseEve
 export const isTouchEvent = (e: Event): e is TouchEvent =>
   (typeof TouchEvent !== 'undefined' && e instanceof TouchEvent) || 'touches' in e || 'changedTouches' in e;
 
-export const log = (message: string) => console.log(message);
+export const log = (...args: unknown[]) => console.log(...args);
+export const error = (...args: unknown[]) => console.error(...args);
+export const warn = (...args: unknown[]) => console.warn(...args);
+export const info = (...args: unknown[]) => console.info(...args);
+export const debug = (...args: unknown[]) => console.debug(...args);
+
+export const table = (...args: unknown[]) => console.table(...args);
 
 export const round = Math.round;
