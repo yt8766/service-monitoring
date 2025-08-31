@@ -1,4 +1,5 @@
-import { lazyReportCache } from '../lazyReportCache';
+import { config as configOptions } from '../config/config';
+import { lazyReportCache } from '../lazyReportCache/lazyReportCache';
 
 const originalPrototype = XMLHttpRequest.prototype;
 const originalOpen = originalPrototype.open;
@@ -18,6 +19,8 @@ const xhrInfoMap = new WeakMap<
 
 const overWriteOpenAndSend = () => {
   originalPrototype.open = function newOpen(method: string, url: string, ...args: unknown[]) {
+    const { dsn } = configOptions;
+    if (url === dsn) return;
     const info = xhrInfoMap.get(this) || {};
     info.url = url;
     info.method = method;

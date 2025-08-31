@@ -1,4 +1,4 @@
-import { ReportType } from './report';
+import type { ReportType } from '../types';
 
 const cacheMap = new Map<ReportType, Record<string, unknown>[]>();
 

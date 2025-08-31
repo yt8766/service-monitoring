@@ -1,5 +1,4 @@
-import { Transport } from '@sentinel/core';
-import { error } from '@sentinel/shared';
+import { Transport, error } from '@sentinel/core';
 
 export class Errors {
   constructor(private transport: Transport) {}

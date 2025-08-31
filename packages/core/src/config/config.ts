@@ -1,20 +1,7 @@
-import { getUniqueID } from './getUniqueID';
+import { getUniqueID } from '../getUniqueID';
+import type { ConfigOptions } from '../types';
 
 const uniqueID = getUniqueID();
-
-export interface ConfigOptions {
-  appId?: string;
-  userId?: string;
-  dsn: string;
-  trackerAll?: boolean;
-  app?: any;
-  react?: any;
-  vue?: {
-    Vue?: any;
-    router?: any;
-  };
-  ua?: string;
-}
 
 export const config: ConfigOptions = {
   appId: uniqueID,

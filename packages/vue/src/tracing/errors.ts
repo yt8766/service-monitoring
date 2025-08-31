@@ -1,5 +1,12 @@
-import { Transport } from '@sentinel/core';
-import { config, error, getLastCaptureEvent, getPaths, lazyReportCache, parseStackFrames } from '@sentinel/shared';
+import {
+  config,
+  error,
+  getLastCaptureEvent,
+  getPaths,
+  lazyReportCache,
+  parseStackFrames,
+  Transport
+} from '@sentinel/core';
 
 export class Errors {
   constructor(private transport: Transport) {}

@@ -1,4 +1,4 @@
-import { Transport } from '@sentinel/core';
+import type { Transport } from '@sentinel/core';
 import { onCLS, onFCP, onINP, onLCP, onTTFB } from 'web-vitals';
 
 export class Metrics {

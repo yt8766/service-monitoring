@@ -1,5 +1,5 @@
-import { Transport } from './transport';
-import { MonitorOptions } from './types';
+import type { Transport } from './transport';
+import type { MonitorOptions } from './types';
 
 export let getTransport: () => Transport | null = () => null;
 

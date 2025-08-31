@@ -28,10 +28,6 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.14.0",
-  "devDependencies": {
-    "@sentinel/core": "workspace:*",
-    "web-vitals": "^5.1.0"
-  }
+  "license": "MIT",
+  "packageManager": "pnpm@10.14.0"
 }

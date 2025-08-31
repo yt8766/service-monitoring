@@ -1,11 +1,10 @@
-type ComposedPathCapableEvent = Event & { path?: EventTarget[] };
-
+import type { ComposedPathCapableEvent } from '../types';
 export const getComposedPathEle = (e: Event) => {
   if (!e) return [] as EventTarget[];
   //如果支持path属性，直接返回path属性
   //如果不支持，就通过composedPath方法获取
   const withPath = e as ComposedPathCapableEvent;
-  const pathArr: EventTarget[] | undefined = withPath.path || (e.composedPath && e.composedPath());
+  const pathArr: EventTarget[] | undefined = withPath.path || (withPath.composedPath && withPath.composedPath());
 
   if ((pathArr || []).length) {
     return pathArr;
@@ -32,15 +31,13 @@ export const getComposedPath = (e: Event) => {
   const composedPath = composedPathEle
     .reverse()
     .slice(2)
-    .filter((et): et is Element => et instanceof Element)
-    .map(ele => {
+    .map((ele: any) => {
       let selector = ele.tagName.toLowerCase();
       if (ele.id) {
         selector += `#${ele.id}`;
       }
-      const classAttr = ele.getAttribute('class');
-      if (classAttr) {
-        selector += `.${classAttr}`;
+      if (ele.className) {
+        selector += `.${ele.className}`;
       }
       return selector;
     });

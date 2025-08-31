@@ -75,6 +75,7 @@ const ignores = [
   'demos/**',
   'eslint.config.js',
   'README.md',
+  'logs/**',
   'apps/frontend/monitor/src/components/ui/**/*'
 ];
 

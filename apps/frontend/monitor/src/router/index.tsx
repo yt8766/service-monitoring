@@ -2,6 +2,7 @@ import AutoAuthChecker from '@/components/AuthChecker';
 import Layout from '@/layout';
 import { Issues } from '@/pages/Issues';
 import { Login } from '@/pages/Login';
+import { Performance } from '@/pages/Performance';
 import { Projects } from '@/pages/Projects';
 import { createBrowserRouter } from 'react-router';
 import AuthRoute from './AuthRoute';
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
       {
         path: 'issues',
         element: <Issues />
+      },
+      {
+        path: 'performance',
+        element: <Performance />
       }
     ]
   },

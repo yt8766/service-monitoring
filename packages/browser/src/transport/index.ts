@@ -1,6 +1,5 @@
 import { getBrowserInfo } from '@sentinel/browser-utils';
-import { Transport } from '@sentinel/core';
-import { lazyReportCache } from '@sentinel/shared';
+import { lazyReportCache, Transport } from '@sentinel/core';
 
 export class BrowserTransport implements Transport {
   constructor(private dsn: string) {}

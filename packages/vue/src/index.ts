@@ -1,8 +1,8 @@
-import { Monitor } from '@sentinel/core';
-import { autoTracker, ConfigOptions, setConfig, tracker } from '@sentinel/shared';
+import { Metrics } from '@sentinel/browser-utils';
+import { api, autoTracker, ConfigOptions, Monitor, pv, setConfig, tracker } from '@sentinel/core';
 import { Errors } from './tracing/errors';
 import { VueTransport } from './transport';
-export { getUniqueID, pageChange, pageStayTime, tracker } from '@sentinel/shared';
+
 export const init = (options: ConfigOptions) => {
   const monitor = new Monitor(options);
   setConfig(options);
@@ -11,10 +11,10 @@ export const init = (options: ConfigOptions) => {
 
   new Errors(transport).init();
 
-  // new Metrics(transport).init();
-  // autoTracker?.(); // 自动行为追踪
-  // pv?.(); // 页面浏览量追踪
-  // api?.(); // API 请求追踪
+  new Metrics(transport).init();
+  autoTracker?.(); // 自动行为追踪
+  pv?.(); // 页面浏览量追踪
+  api?.(); // API 请求追踪
 
   return monitor;
 };

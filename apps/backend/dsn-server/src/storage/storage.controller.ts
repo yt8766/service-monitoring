@@ -18,6 +18,17 @@ export class StorageController {
     };
   }
 
+  @Get('/performance')
+  async performance() {
+    const result = await this.storageService.getPerformance();
+    return {
+      data: result,
+      message: 'get performance success',
+      code: 0,
+      success: true
+    };
+  }
+
   @Get('/data')
   async getData() {
     const result = await this.storageService.getData();

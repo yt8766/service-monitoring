@@ -1,10 +1,7 @@
-import { getCache, setCache } from './cache';
-import { report, ReportType } from './report';
-
+import { clearCache, getCache, setCache } from '../cache/cache';
+import { report } from '../report/report';
+import type { LazyReportOptions, ReportType } from '../types';
 let timer: NodeJS.Timeout | null = null;
-interface LazyReportOptions {
-  timeout?: number;
-}
 export const lazyReportCache = (type: ReportType, data: Record<string, any>, options: LazyReportOptions = {}) => {
   const { timeout = 3000 } = options;
   setCache(type, data);
@@ -16,6 +13,8 @@ export const lazyReportCache = (type: ReportType, data: Record<string, any>, opt
         console.log('lazyReportCache', key, data);
         report(key, data);
       }
+
+      clearCache();
     }
   }, timeout);
 };
