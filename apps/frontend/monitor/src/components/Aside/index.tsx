@@ -57,8 +57,20 @@ const Aside = () => {
   const { data: currentUser } = useQuery({
     queryKey: ['currentUser'],
     queryFn: async () => {
+      const bugs = await fetch('/dsn-api/storage/bugs');
+      const bugsData = await bugs.json();
       const res = await srv.currentUser();
-      return res;
+
+      for (const menu of menus) {
+        if (menu.name === 'issues') {
+          menu.badge = bugsData.data.length;
+        }
+      }
+
+      return {
+        ...res,
+        bugs: bugsData.data.length
+      };
     }
   });
 

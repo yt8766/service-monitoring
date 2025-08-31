@@ -14,6 +14,15 @@ export class StorageService {
     return json.data;
   }
 
+  async getPerformance() {
+    const result = await this.clickhouseClient.query({
+      query: "SELECT * FROM sentinel_monitor_view where event_type = 'performance'",
+      format: 'JSON'
+    });
+    const json = await result.json();
+    return json.data;
+  }
+
   async getData() {
     const result = await this.clickhouseClient.query({
       query: 'SELECT * FROM sentinel_monitor_view',
@@ -52,7 +61,10 @@ export class StorageService {
           app_id: app_id || '5',
           event_type: item?.event_type || 'test_event',
           message: item?.message || 'This is a test message',
-          info: item
+          info: {
+            ...item,
+            data: undefined
+          }
         };
 
         await this.clickhouseClient.insert({
@@ -72,7 +84,10 @@ export class StorageService {
           app_id: app_id || '5',
           event_type: item?.event_type || 'test_event',
           message: item?.message || 'This is a test message',
-          info: payload
+          info: {
+            ...item,
+            data: undefined
+          }
         };
 
         await this.clickhouseClient.insert({

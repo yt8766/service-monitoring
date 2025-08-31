@@ -6,6 +6,13 @@ export interface CreateUserPayload {
   password: string;
 }
 
+export interface CreateAdminPayload {
+  username: string;
+  password: string;
+  email: string;
+  phone: string;
+}
+
 export interface LoginPayload {
   username: string;
   password: string;
@@ -29,11 +36,23 @@ export interface ApplicationData {
   type: ApplicationType;
   appId: string;
   name: string;
-  bugs: number;
+  bugs: {
+    create_at: string;
+    event_type: string;
+    desktop: number;
+  }[];
   transactions: number;
   data: {
     date: string;
     resting: number;
+    event_type: string;
+    visitors: number;
+  }[];
+  lineChartData: {
+    date: string;
+    resting: number;
+    event_type: string;
+    visitors: number;
   }[];
   createdAt: Date;
 }

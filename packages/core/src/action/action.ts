@@ -1,7 +1,7 @@
-import { config } from './config';
-import { isElement, isMouseEvent, isTouchEvent, isValueElement } from './general';
-import { lazyReportCache } from './lazyReportCache';
-import { getPaths } from './paths';
+import { isElement, isMouseEvent, isTouchEvent, isValueElement } from '@sentinel/shared';
+import { config } from '../config/config';
+import { lazyReportCache } from '../lazyReportCache/lazyReportCache';
+import { getPaths } from '../paths/paths';
 export const tracker = (event: Event) => {
   const { trackerAll = false } = config;
   if (trackerAll) return;

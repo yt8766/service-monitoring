@@ -1,10 +1,8 @@
-import { config } from './config';
-import { isFunction } from './general';
-import { getUniqueID } from './getUniqueID';
+import { isFunction } from '@sentinel/shared';
+import { config } from '../config/config';
+import { getUniqueID } from '../getUniqueID';
+import type { ReportOptions, ReportType } from '../types';
 
-export interface ReportOptions {
-  isImmediate?: boolean;
-}
 export const reportType = {
   TRACE: 'trace',
   ERROR: 'error',
@@ -23,26 +21,17 @@ export const reportType = {
   REACT: 'react'
 } as const;
 
-export type ReportType = (typeof reportType)[keyof typeof reportType];
+// ReportType 类型已集中到 types 中
 const uniqueID = getUniqueID();
 const reportRequest = (url: string, data: string) => {
   if (isFunction(window.fetch)) {
-    window
-      .fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: data
-      })
-      .then((response: Response) => {
-        if (!response.ok) {
-          console.error('Error sending data:', response.statusText);
-        }
-      })
-      .catch(error => {
-        console.error('Error sending data:', error);
-      });
+    window.fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: data
+    });
   } else {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
@@ -61,11 +50,11 @@ const reportRequest = (url: string, data: string) => {
 };
 
 const sendBeacon = (url: string, data: string) => {
-  // if (isFunction(navigator.sendBeacon)) {
-  //   navigator.sendBeacon(url, data);
-  // } else {
-  reportRequest(url, data);
-  // }
+  if (isFunction(navigator.sendBeacon)) {
+    navigator.sendBeacon(url, data);
+  } else {
+    reportRequest(url, data);
+  }
 };
 
 export const report = (type: ReportType, data: Record<string, unknown>[], options: ReportOptions = {}) => {

@@ -1,4 +1,5 @@
-import { lazyReportCache } from '../lazyReportCache';
+import { config as configOptions } from '../config/config';
+import { lazyReportCache } from '../lazyReportCache/lazyReportCache';
 
 const originalFetch = window.fetch;
 
@@ -15,6 +16,8 @@ interface FetchReportData {
 
 const overWriteFetch = () => {
   window.fetch = function newFetch(url, config) {
+    const { dsn } = configOptions;
+    if (url === dsn) return originalFetch(url, config);
     const startTime = Date.now();
 
     const reportData: FetchReportData = {

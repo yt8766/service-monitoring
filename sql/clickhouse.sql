@@ -4,13 +4,8 @@ create table sentinel_monitor
 (
     app_id String, --应用id
     event_type String, --事件类型
-    filename String,
-    functionName String,
-    lineno String,
-    colno String,
     message String, -- 消息内容
-    stack String,
-    path String,
+    info JSON,
     create_at DATETIME('Asia/Shanghai') DEFAULT now('Asia/Shanghai') -- 时间戳
 )
   engine = MergeTree()

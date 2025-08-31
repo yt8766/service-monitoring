@@ -1,4 +1,5 @@
-import { getLastCaptureEvent, getPaths, isFunction, parseStackFrames } from '@sentinel/shared';
+import { getLastCaptureEvent, getPaths, parseStackFrames } from '@sentinel/core';
+import { isFunction } from '@sentinel/shared';
 import React, { JSX } from 'react';
 
 type ErrorBoundaryFallback =
