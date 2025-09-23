@@ -1,17 +1,19 @@
 // eslint.config.mjs
 import eslint from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
 import eslintPrettier from 'eslint-plugin-prettier';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintPluginVue from 'eslint-plugin-vue';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import vueParser from 'vue-eslint-parser';
 
 // 前端配置
 const frontendConfig = {
-  files: ['apps/frontend/monitor/**/*.{js,ts,vue,jsx,tsx}'],
+  files: ['apps/frontend/monitor/**/*.{js,ts,jsx,tsx}'],
   ignores: ['apps/frontend/monitor/src/components/ui/**/*'],
-  extends: [...eslintPluginVue.configs['flat/recommended']],
+  extends: [...eslintPluginVue.configs['flat/recommended'], eslintConfigPrettier],
   languageOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -37,6 +39,21 @@ const frontendConfig = {
         allowConstantExport: true
       }
     ]
+  }
+};
+
+const vueConfig = {
+  files: ['apps/frontend/client/**/*.vue'],
+  extends: [...eslintPluginVue.configs['flat/recommended'], eslintConfigPrettier],
+  languageOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    globals: { ...globals.browser },
+    parser: vueParser,
+    parserOptions: {
+      // 让 <script lang="ts"> 由 TS 解析，其余由 vue-eslint-parser 处理
+      parser: tseslint.parser
+    }
   }
 };
 
@@ -104,6 +121,8 @@ export default tseslint.config(
   },
   // 前端配置
   frontendConfig,
+  // 为 client 下的 Vue SFC 指定解析器
+  vueConfig,
   // 后端配置
   backendConfig
   // dtsConfig
